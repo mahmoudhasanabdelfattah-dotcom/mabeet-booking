@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mabeet — Verified stays in Makkah &amp; Madinah</title>
+<meta name="description" content="Book verified hotels and shared rooms near the Haram in Makkah and Madinah. Walk times, VAT-inclusive prices, instant confirmation.">
+<meta name="theme-color" content="#16223a">
+<meta property="og:title" content="mabeet — Verified stays in Makkah & Madinah">
+<meta property="og:description" content="Plan your Umrah trip with verified stays, walking times to the Haram, and one checkout for both cities.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="./images/1693590614566-1d3ea9ef32f7.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2316223a'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23c2562f'/%3E%3C/svg%3E">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+:root{--bg:#f6f1ea;--ink:#16223a;--accent:#c2562f;--accent-deep:#9e4222;--muted:#5b6272;--soft:#f0ebe3;--card:#fff;--ease:cubic-bezier(.22,1,.36,1)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html[lang=ar] body,html[dir=rtl] body{font-family:'IBM Plex Sans Arabic','Schibsted Grotesk',system-ui,sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-deep);text-decoration:underline}
+input,select,textarea,button{font-family:inherit;color:inherit}
+@keyframes mabeet-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mabeet-fade{from{opacity:0}to{opacity:1}}
+[data-screen-label]{animation:mabeet-rise .55s var(--ease) both}
+header{animation:mabeet-fade .4s var(--ease) both}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){.mabeet-nav{display:none!important}.mabeet-nav.open{display:flex!important;flex-direction:column;position:absolute;inset:auto 16px auto 16px;top:64px;background:rgba(246,241,234,.98);border:1px solid #e0d8cc;border-radius:18px;padding:10px;box-shadow:0 18px 40px -24px rgba(22,34,58,.45);z-index:40}.mabeet-menu{display:grid!important}}
+.mabeet-menu{display:none}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<header style="position:sticky;top:0;z-index:30;background:rgba(246,241,234,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(224,216,204,.7)">
+  <div style="max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px;position:relative">
+    <button onClick="{{ goHome }}" style="all:unset;cursor:pointer;font-weight:800;font-size:22px;letter-spacing:-.03em;display:flex;align-items:center;gap:8px" aria-label="mabeet home">
+      <span style="width:12px;height:12px;border-radius:50%;background:#c2562f;box-shadow:0 0 0 4px rgba(194,86,47,.18)"></span>mabeet
+    </button>
+    <button onClick="{{ toggleMenu }}" class="mabeet-menu" style="all:unset;cursor:pointer;margin-inline-start:auto;width:42px;height:42px;border-radius:12px;background:#fff;display:grid;place-items:center;font-weight:700" aria-label="Menu">☰</button>
+    <div class="mabeet-nav {{ menuClass }}" style="margin-inline-start:auto;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600">
+      <button onClick="{{ toggleLang }}" style="all:unset;cursor:pointer;padding:9px 12px;border-radius:999px" style-hover="background:#ebe4d9">{{ langToggle }}</button>
+      <a href="https://wa.me/966500000000?text=Hi%20mabeet%2C%20I%20need%20help%20with%20a%20booking" target="_blank" rel="noopener" style="all:unset;cursor:pointer;padding:9px 12px;border-radius:999px;color:inherit;text-decoration:none" style-hover="background:#ebe4d9">{{ helpLabel }}</a>
+      <button onClick="{{ openSaved }}" style="all:unset;cursor:pointer;padding:9px 12px;border-radius:999px;display:flex;gap:6px;align-items:center" style-hover="background:#ebe4d9"><span style="color:#c2562f">♥</span>{{ savedLabel }} {{ savedCount }}</button>
+      <button onClick="{{ openTrip }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:9px 14px 9px 16px;border-radius:999px;background:#16223a;color:#f6f1ea">{{ tripLabel }}<span style="min-width:20px;height:20px;border-radius:999px;background:{{ tripBadgeBg }};color:#16223a;display:grid;place-items:center;font-size:12px;padding:0 4px">{{ tripCount }}</span></button>
+    </div>
+  </div>
+</header>
+
+<main style="flex:1">
+
+<!-- HOME -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="Home" style="max-width:1240px;margin:0 auto;padding:24px 24px 24px;display:flex;flex-direction:column;gap:14px">
+    <div style="position:relative;height:clamp(220px,30vw,380px);border-radius:28px;overflow:hidden">
+      <sc-if value="{{ isMakkah }}" hint-placeholder-val="{{ true }}"><image-slot id="hero-makkah" shape="rect" placeholder="Makkah hero photo" src="{{ heroMakkah.img }}" credit="{{ heroMakkah.credit }}" credit-href="{{ heroMakkah.href }}"></image-slot></sc-if>
+      <sc-if value="{{ isMadinah }}" hint-placeholder-val="{{ false }}"><image-slot id="hero-madinah" shape="rect" placeholder="Madinah hero photo" src="{{ heroMadinah.img }}" credit="{{ heroMadinah.credit }}" credit-href="{{ heroMadinah.href }}"></image-slot></sc-if>
+      <div style="position:absolute;left:18px;bottom:18px;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none">
+        <span style="background:rgba(22,34,58,.86);color:#fff;font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;backdrop-filter:blur(6px)">{{ heroCaption }}</span>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:28px;padding:clamp(24px,5vw,56px);display:flex;flex-direction:column;gap:32px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#f7e4d9;color:#9e4222">{{ badgeVerified }}</span>
+        <span style="font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#f0ebe3">{{ badgeVat }}</span>
+        <span style="font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#f0ebe3">{{ badgeInstant }}</span>
+      </div>
+      <div style="font-size:clamp(28px,4.2vw,52px);font-weight:600;line-height:1.35;letter-spacing:-.025em;text-wrap:pretty">
+        <span style="color:#8d93a1">{{ sentenceStay }} </span>
+        <select value="{{ city }}" onChange="{{ onCity }}" style="font-size:inherit;font-weight:700;border:0;border-bottom:3px solid #c2562f;background:transparent;padding:0 4px;outline:none;cursor:pointer;letter-spacing:inherit"><option value="makkah">{{ cityMakkah }}</option><option value="madinah">{{ cityMadinah }}</option></select>
+        <span style="color:#8d93a1"> {{ sentenceFrom }} </span>
+        <input type="date" value="{{ checkin }}" onChange="{{ onCheckin }}" min="{{ today }}" style="font-size:.62em;font-weight:700;border:0;border-bottom:3px solid #c2562f;background:transparent;outline:none;padding:0 2px;vertical-align:middle">
+        <span style="color:#8d93a1"> {{ sentenceTo }} </span>
+        <input type="date" value="{{ checkout }}" onChange="{{ onCheckout }}" min="{{ checkin }}" style="font-size:.62em;font-weight:700;border:0;border-bottom:3px solid #c2562f;background:transparent;outline:none;padding:0 2px;vertical-align:middle">
+        <span style="color:#8d93a1">, </span>
+        <span style="display:inline-flex;align-items:center;gap:10px;border-bottom:3px solid #c2562f;vertical-align:baseline">
+          <button onClick="{{ decGuests }}" style="all:unset;cursor:pointer;font-size:.6em;width:1.3em;height:1.3em;border-radius:50%;background:#f0ebe3;display:grid;place-items:center">−</button>
+          <span style="font-weight:700">{{ guests }}</span>
+          <button onClick="{{ incGuests }}" style="all:unset;cursor:pointer;font-size:.6em;width:1.3em;height:1.3em;border-radius:50%;background:#f0ebe3;display:grid;place-items:center">+</button>
+        </span>
+        <span style="color:#8d93a1"> {{ guestWord }}, {{ sentenceIn }} </span>
+        <select value="{{ mode }}" onChange="{{ onMode }}" style="font-size:inherit;font-weight:700;border:0;border-bottom:3px solid #c2562f;background:transparent;padding:0 4px;outline:none;cursor:pointer;letter-spacing:inherit"><option value="room">{{ modeRoom }}</option><option value="bed">{{ modeBed }}</option></select>
+        <span style="color:#8d93a1">.</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="font-size:15px;color:#5b6272">{{ nightsLabel }} · {{ matchCount }} {{ staysAvailable }}</span>
+        <button onClick="{{ doSearch }}" style="all:unset;cursor:pointer;background:#c2562f;color:#fff;padding:18px 30px;border-radius:999px;font-weight:700;font-size:17px;transition:transform .2s ease,background .2s ease" style-hover="background:#9e4222;transform:translateY(-1px)">{{ showStays }}</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:32px 24px 0">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <h2 style="font-size:28px;letter-spacing:-.02em;margin:0">{{ topRated }} {{ cityName }}</h2>
+      <button onClick="{{ doSearch }}" style="all:unset;cursor:pointer;color:#c2562f;font-weight:700;font-size:15px">{{ seeAll }} {{ matchCount }} →</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px">
+      <sc-for list="{{ popular }}" as="h" hint-placeholder-count="4">
+        <div onClick="{{ h.open }}" style="cursor:pointer;background:#fff;border-radius:20px;padding:8px 8px 16px;display:flex;flex-direction:column;gap:12px" style-hover="box-shadow:0 0 0 2px #16223a">
+          <div style="position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden">
+            <image-slot id="pop-{{ h.id }}" shape="rounded" radius="14" placeholder="Hotel photo" src="{{ h.img }}" credit="{{ h.credit }}" credit-href="{{ h.href }}"></image-slot>
+            <button onClick="{{ h.toggleSave }}" style="all:unset;cursor:pointer;position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;font-size:17px;color:{{ h.heartColor }}">{{ h.heart }}</button>
+            <span style="position:absolute;left:10px;bottom:10px;background:rgba(22,34,58,.88);color:#fff;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px">{{ h.walkLabel }}</span>
+          </div>
+          <div style="padding:0 8px;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#5b6272"><span>{{ h.stars }}-star · {{ h.area }}</span><strong style="color:#16223a">★ {{ h.rating }}</strong></div>
+            <div style="font-weight:700;font-size:17px">{{ h.name }}</div>
+            <div style="font-size:14px;color:#5b6272">from <strong style="color:#16223a">{{ h.fromShort }}</strong> / night</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:32px 24px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <h2 style="font-size:28px;letter-spacing:-.02em;margin:0">{{ walkTitle }}</h2>
+      <span style="color:#5b6272;font-size:15px">{{ cityName }} · {{ walkSub }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <sc-for list="{{ walkBuckets }}" as="b" hint-placeholder-count="3">
+        <button onClick="{{ b.open }}" style="all:unset;cursor:pointer;background:#fff;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:18px" style-hover="box-shadow:0 0 0 2px #16223a">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span style="font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1">{{ b.title }}</span>
+            <span style="font-size:13px;font-weight:600;color:#5b6272">{{ b.count }}</span>
+          </div>
+          <div style="height:6px;border-radius:3px;background:#ede6db;overflow:hidden"><div style="height:100%;width:{{ b.bar }};background:#c2562f;border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px"><span style="color:#5b6272">{{ b.sub }}</span><strong>{{ b.from }}</strong></div>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:16px 24px 32px">
+    <div style="background:#16223a;color:#f6f1ea;border-radius:28px;padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#f2b38f">{{ plannerEyebrow }}</span>
+        <h2 style="font-size:clamp(28px,3.4vw,40px);letter-spacing:-.03em;line-height:1.1;margin:0">{{ plannerTitle }}</h2>
+        <p style="margin:0;color:#c3c9d6;line-height:1.55;font-size:16px;max-width:440px">{{ plannerBody }}</p>
+        <button onClick="{{ doSearch }}" style="all:unset;cursor:pointer;align-self:flex-start;background:#f6f1ea;color:#16223a;padding:14px 22px;border-radius:999px;font-weight:700;margin-top:6px">{{ startWith }} {{ cityName }}</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:14px;background:#22314f;border-radius:16px;padding:16px">
+          <span style="width:36px;height:36px;border-radius:50%;background:#c2562f;display:grid;place-items:center;font-weight:700">1</span>
+          <div style="flex:1"><div style="font-weight:600">Makkah</div><div style="font-size:14px;color:#9aa3b8">4 nights · near the Haram</div></div>
+        </div>
+        <div style="width:2px;height:14px;background:#33436a;margin-left:34px"></div>
+        <div style="display:flex;align-items:center;gap:14px;background:#22314f;border-radius:16px;padding:16px">
+          <span style="width:36px;height:36px;border-radius:50%;border:2px dashed #5b6b8f;display:grid;place-items:center;font-weight:700;color:#9aa3b8">2</span>
+          <div style="flex:1"><div style="font-weight:600">Madinah</div><div style="font-size:14px;color:#9aa3b8">3 nights · near the Prophet's Mosque</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:16px 24px 56px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;border-top:1px solid #e0d8cc;padding-top:24px">
+      <div><div style="font-weight:700;margin-bottom:6px">Licensed operator</div><div style="color:#5b6272;font-size:15px;line-height:1.5">Registered with the Ministry of Tourism.</div></div>
+      <div><div style="font-weight:700;margin-bottom:6px">Checked in person</div><div style="color:#5b6272;font-size:15px;line-height:1.5">Our local team visits every property.</div></div>
+      <div><div style="font-weight:700;margin-bottom:6px">Local rates</div><div style="color:#5b6272;font-size:15px;line-height:1.5">Usually below international booking sites.</div></div>
+      <div><div style="font-weight:700;margin-bottom:6px">WhatsApp support</div><div style="color:#5b6272;font-size:15px;line-height:1.5">A real person, from booking to check-out.</div></div>
+    </div>
+  </section>
+</sc-if>
+
+<!-- RESULTS -->
+<sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Results" style="max-width:1240px;margin:0 auto;padding:20px 24px 64px">
+    <button onClick="{{ goHome }}" style="all:unset;cursor:pointer;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;background:#fff;border-radius:999px;padding:12px 20px;font-size:15px" style-hover="box-shadow:0 0 0 2px #16223a">
+      <strong>{{ cityName }}</strong><span style="color:#5b6272">{{ dateRange }}</span><span style="color:#5b6272">{{ guests }} {{ guestWord }}</span><span style="color:#5b6272">{{ modeLabel }}</span><span style="font-weight:600;color:#c2562f">Edit</span>
+    </button>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 22px;align-items:center">
+      <sc-for list="{{ walkChips }}" as="c" hint-placeholder-count="4">
+        <button onClick="{{ c.select }}" style="all:unset;cursor:pointer;padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</button>
+      </sc-for>
+      <span style="width:1px;height:22px;background:#dcd3c5;margin:0 4px"></span>
+      <button onClick="{{ toggleSavedOnly }}" style="all:unset;cursor:pointer;padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;background:{{ savedChipBg }};color:{{ savedChipFg }}">♥ Saved</button>
+      <sc-for list="{{ starChips }}" as="c" hint-placeholder-count="3">
+        <button onClick="{{ c.toggle }}" style="all:unset;cursor:pointer;padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</button>
+      </sc-for>
+      <select value="{{ sort }}" onChange="{{ onSort }}" style="margin-left:auto;padding:9px 12px;border:0;border-radius:999px;font-size:14px;font-weight:600;background:#fff">
+        <option value="walk">Shortest walk</option><option value="price">Lowest total</option><option value="rating">Best rated</option>
+      </select>
+    </div>
+
+    <div style="display:grid;grid-template-columns:{{ layoutCols }};gap:20px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+        <div style="font-size:15px;color:#5b6272">{{ resultsTitle }}</div>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:20px;padding:32px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center"><strong>Nothing matches yet.</strong><button onClick="{{ resetFilters }}" style="all:unset;cursor:pointer;color:#c2562f;font-weight:700">Clear filters</button></div>
+        </sc-if>
+        <sc-for list="{{ results }}" as="h" hint-placeholder-count="4">
+          <div onClick="{{ h.open }}" onMouseEnter="{{ h.hoverOn }}" onMouseLeave="{{ hoverOff }}" style="cursor:pointer;display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr) auto;gap:18px;align-items:center;background:#fff;border-radius:20px;padding:12px;box-shadow:0 0 0 2px {{ h.cardRing }}">
+            <div style="aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative"><image-slot id="hotel-{{ h.id }}" shape="rounded" radius="14" placeholder="Hotel photo" src="{{ h.img }}" credit="{{ h.credit }}" credit-href="{{ h.href }}"></image-slot>
+              <button onClick="{{ h.toggleSave }}" style="all:unset;cursor:pointer;position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;font-size:15px;color:{{ h.heartColor }}">{{ h.heart }}</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+              <div style="font-size:13px;color:#5b6272">{{ h.stars }}-star · {{ h.area }}</div>
+              <div style="font-size:19px;font-weight:700;letter-spacing:-.01em">{{ h.name }}</div>
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px">
+                <span style="background:#f7e4d9;color:#9e4222;font-weight:700;padding:3px 9px;border-radius:6px">{{ h.walkLabel }}</span>
+                <span><strong>{{ h.rating }}</strong> <span style="color:#5b6272">{{ h.ratingWord }} · {{ h.reviews }}</span></span>
+              </div>
+              <div style="font-size:13px;color:#5b6272">{{ h.perks }}</div>
+            </div>
+            <div style="text-align:right;padding-right:8px">
+              <div style="font-size:22px;font-weight:800;letter-spacing:-.02em">{{ h.priceLabel }}</div>
+              <div style="font-size:12px;color:#5b6272">{{ h.priceUnit }}</div>
+              <sc-if value="{{ h.hasBedTag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:12px;font-weight:700;color:#c2562f">{{ h.leftTag }}</div></sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ showMap }}" hint-placeholder-val="{{ true }}">
+        <div style="position:sticky;top:80px;height:calc(100vh - 110px);min-height:460px;border-radius:24px;background:#ebe4d9;overflow:hidden;display:flex;flex-direction:column">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-size:13px;font-weight:600"><span>Walking distance from {{ haramName }}</span><span style="color:#5b6272">Tap a pin</span></div>
+          <div style="flex:1;display:grid;place-items:center;padding:0 16px 16px;min-height:0">
+            <div style="position:relative;height:100%;max-width:100%;aspect-ratio:1">
+              <sc-for list="{{ mapRings }}" as="r" hint-placeholder-count="3">
+                <div style="position:absolute;left:50%;top:50%;width:{{ r.size }};height:{{ r.size }};transform:translate(-50%,-50%);border-radius:50%;border:1.5px dashed #c9bfae;background:{{ r.fill }}"><span style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#ebe4d9;padding:0 6px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5b6272">{{ r.label }}</span></div>
+              </sc-for>
+              <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:12px;background:#16223a;color:#f6f1ea;display:grid;place-items:center;font-size:11px;font-weight:700;box-shadow:0 0 0 6px rgba(22,34,58,.12)">Haram</div>
+              <sc-for list="{{ mapPins }}" as="m" hint-placeholder-count="5">
+                <button onClick="{{ m.open }}" onMouseEnter="{{ m.hoverOn }}" onMouseLeave="{{ hoverOff }}" style="all:unset;cursor:pointer;position:absolute;left:{{ m.x }};top:{{ m.y }};transform:translate(-50%,-50%);z-index:{{ m.z }};background:{{ m.bg }};color:{{ m.fg }};font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 10px -4px rgba(22,34,58,.4)">{{ m.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</sc-if>
+
+<!-- HOTEL -->
+<sc-if value="{{ isHotel }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Hotel" style="max-width:1240px;margin:0 auto;padding:20px 24px 140px">
+    <button onClick="{{ backToResults }}" style="all:unset;cursor:pointer;font-size:14px;font-weight:600;color:#5b6272;margin-bottom:14px" style-hover="color:#16223a">← All stays in {{ cityName }}</button>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:200px 200px;gap:8px;border-radius:24px;overflow:hidden;margin:14px 0 28px">
+      <div style="grid-column:span 2;grid-row:span 2;position:relative"><image-slot id="gallery-main-{{ hotel.id }}" shape="rect" placeholder="Hotel exterior" src="{{ hotel.img }}" credit="{{ hotel.credit }}" credit-href="{{ hotel.href }}"></image-slot></div>
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="4">
+        <div style="position:relative"><image-slot id="gallery-{{ g.key }}" shape="rect" placeholder="{{ g.label }}" src="{{ g.img }}" credit="{{ g.credit }}" credit-href="{{ g.href }}"></image-slot></div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:40px;align-items:start">
+      <div style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:32px">
+        <div>
+          <div style="font-size:14px;color:#5b6272">{{ hotel.stars }}-star hotel · {{ hotel.area }}, {{ cityName }}</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin:8px 0 16px">
+            <h1 style="font-size:clamp(34px,4.5vw,52px);letter-spacing:-.035em;line-height:1.02;margin:0">{{ hotel.name }}</h1>
+            <button onClick="{{ hotel.toggleSave }}" style="all:unset;cursor:pointer;flex-shrink:0;display:flex;align-items:center;gap:8px;background:#fff;padding:11px 16px;border-radius:999px;font-weight:700;font-size:14px"><span style="color:{{ hotel.heartColor }};font-size:16px">{{ hotel.heart }}</span>{{ hotel.saveLabel }}</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+            <div style="background:#fff;border-radius:16px;padding:16px"><div style="font-size:28px;font-weight:800;letter-spacing:-.03em">{{ hotel.walkMin }}</div><div style="font-size:13px;color:#5b6272">walk to the Haram</div></div>
+            <div style="background:#fff;border-radius:16px;padding:16px"><div style="font-size:28px;font-weight:800;letter-spacing:-.03em">{{ hotel.rating }}</div><div style="font-size:13px;color:#5b6272">{{ hotel.ratingWord }} · {{ hotel.reviews }}</div></div>
+            <div style="background:#fff;border-radius:16px;padding:16px"><div style="font-size:28px;font-weight:800;letter-spacing:-.03em">{{ hotel.fromShort }}</div><div style="font-size:13px;color:#5b6272">from, per night</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+            <h2 style="font-size:24px;letter-spacing:-.02em;margin:0">Pick rooms or beds</h2>
+            <span style="font-size:14px;color:#5b6272;white-space:nowrap">{{ dateRange }} · {{ nightsLabel }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:16px;align-items:center;background:#fff;border-radius:18px;padding:14px;box-shadow:0 0 0 2px {{ r.ring }}">
+                <div style="width:96px;height:96px;border-radius:12px;overflow:hidden;position:relative"><image-slot id="room-{{ r.slotId }}" shape="rounded" radius="12" placeholder="Room photo" src="{{ r.img }}" credit="{{ r.credit }}" credit-href="{{ r.href }}"></image-slot></div>
+                <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+                  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span style="font-weight:700;font-size:17px">{{ r.name }}</span><sc-if value="{{ r.isBed }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;background:#fbeed6;color:#7a5412;padding:3px 8px;border-radius:6px">Per bed</span></sc-if></div>
+                  <div style="font-size:14px;color:#5b6272">{{ r.desc }}</div>
+                  <div style="display:flex;gap:12px;font-size:13px;flex-wrap:wrap"><span>{{ r.meal }}</span><span style="color:{{ r.refundColor }};font-weight:600">{{ r.refund }}</span></div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+                  <div style="text-align:right"><div style="font-size:19px;font-weight:800">{{ r.priceLabel }}</div><div style="font-size:12px;color:#5b6272">{{ r.unitLabel }}</div></div>
+                  <div style="display:flex;align-items:center;gap:10px;background:#f0ebe3;border-radius:999px;padding:4px">
+                    <button onClick="{{ r.dec }}" style="all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:18px">−</button>
+                    <span style="min-width:16px;text-align:center;font-weight:700">{{ r.qty }}</span>
+                    <button onClick="{{ r.inc }}" style="all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;background:#16223a;color:#fff;display:grid;place-items:center;font-size:18px">+</button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <h2 style="font-size:24px;letter-spacing:-.02em;margin:0">What guests say</h2>
+            <span style="font-size:14px;color:#5b6272">{{ hotel.rating }} {{ hotel.ratingWord }} · {{ hotel.reviews }} from verified stays</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 28px;background:#fff;border-radius:18px;padding:20px">
+            <sc-for list="{{ scores }}" as="sc" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;justify-content:space-between;font-size:14px"><span>{{ sc.label }}</span><strong>{{ sc.val }}</strong></div>
+                <div style="height:6px;border-radius:3px;background:#ede6db"><div style="height:100%;width:{{ sc.pct }};background:#16223a;border-radius:3px"></div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
+            <sc-for list="{{ reviewsList }}" as="rv" hint-placeholder-count="3">
+              <div style="background:#fff;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span style="width:34px;height:34px;border-radius:50%;background:#f7e4d9;color:#9e4222;display:grid;place-items:center;font-weight:700;font-size:14px">{{ rv.initial }}</span>
+                  <div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14px">{{ rv.name }}</div><div style="font-size:12px;color:#5b6272">{{ rv.meta }}</div></div>
+                  <strong style="font-size:14px">{{ rv.score }}</strong>
+                </div>
+                <p style="margin:0;font-size:14px;line-height:1.55;color:#33436a;text-wrap:pretty">{{ rv.text }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <h2 style="font-size:24px;letter-spacing:-.02em;margin:0 0 12px">Good to know</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
+            <sc-for list="{{ hotel.amenities }}" as="a" hint-placeholder-count="6"><div style="background:#fff;border-radius:12px;padding:12px 14px;font-size:14px">{{ a }}</div></sc-for>
+          </div>
+        </div>
+      </div>
+
+      <aside style="position:sticky;top:80px;display:flex;flex-direction:column;gap:12px">
+        <div style="background:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px">
+          <strong style="font-size:15px">Your walk to prayer</strong>
+          <div style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:0 12px">
+            <span style="width:14px;height:14px;border-radius:50%;background:#16223a;margin-top:3px"></span>
+            <div style="padding-bottom:14px"><div style="font-weight:600;font-size:14px">{{ hotel.name }}</div><div style="font-size:13px;color:#5b6272">{{ hotel.area }}</div></div>
+            <div style="display:flex;justify-content:center"><span style="width:2px;height:100%;background:repeating-linear-gradient(#c2562f 0 5px,transparent 5px 10px)"></span></div>
+            <div style="padding-bottom:14px;font-size:13px;color:#c2562f;font-weight:700">{{ hotel.walkMin }} on foot · {{ hotel.distM }}</div>
+            <span style="width:14px;height:14px;border-radius:50%;background:#c2562f;margin-top:3px"></span>
+            <div><div style="font-weight:600;font-size:14px">{{ gateName }}</div><div style="font-size:13px;color:#5b6272">Nearest entrance to {{ haramName }}</div></div>
+          </div>
+          <div style="font-size:13px;color:#5b6272;border-top:1px solid #ede6db;padding-top:12px">{{ hotel.shuttleNote }}</div>
+        </div>
+        <div style="background:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+          <strong style="font-size:15px">Check-in 4:00 pm · Check-out 12:00 pm</strong>
+          <span style="color:#5b6272">Passport or national ID required at check-in. Men and women's shared rooms are fully separated.</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:25;padding:14px 24px;pointer-events:none">
+    <div style="max-width:1192px;margin:0 auto;background:#16223a;color:#f6f1ea;border-radius:22px;padding:14px 14px 14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;pointer-events:auto;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)">
+      <div style="display:flex;flex-direction:column">
+        <span style="font-size:13px;color:#9aa3b8">{{ selSummary }}</span>
+        <span style="font-size:22px;font-weight:800;letter-spacing:-.02em">{{ selTotal }} <span style="font-size:13px;font-weight:500;color:#9aa3b8">incl. VAT</span></span>
+      </div>
+      <button onClick="{{ addToTrip }}" style="all:unset;cursor:pointer;margin-left:auto;background:{{ addBg }};color:#fff;padding:15px 26px;border-radius:16px;font-weight:700">{{ addLabel }}</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- TRIP / CHECKOUT -->
+<sc-if value="{{ isTrip }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Trip & checkout" style="max-width:1140px;margin:0 auto;padding:28px 24px 64px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:0 0 24px">
+      <h1 style="font-size:clamp(34px,4.5vw,48px);letter-spacing:-.035em;margin:0">Your trip</h1>
+      <div style="display:flex;gap:6px;align-items:center;font-size:13px;font-weight:600">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+          <span style="display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:{{ st.bg }};color:{{ st.fg }}">{{ st.mark }} {{ st.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ tripEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border-radius:24px;padding:40px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+        <strong style="font-size:20px">No stays yet.</strong>
+        <span style="color:#5b6272">Pick a hotel in Makkah or Madinah to start your trip.</span>
+        <button onClick="{{ goHome }}" style="all:unset;cursor:pointer;background:#c2562f;color:#fff;padding:14px 22px;border-radius:999px;font-weight:700">Find a stay</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ tripHas }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px;align-items:start">
+        <div style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ tripItems }}" as="t" hint-placeholder-count="1">
+            <div style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;background:#fff;border-radius:20px;padding:18px">
+              <span style="width:40px;height:40px;border-radius:50%;background:#c2562f;color:#fff;display:grid;place-items:center;font-weight:700">{{ t.n }}</span>
+              <div style="min-width:0"><div style="font-size:13px;color:#5b6272">{{ t.city }} · {{ t.dates }}</div><div style="font-weight:700;font-size:17px">{{ t.hotel }}</div><div style="font-size:14px;color:#5b6272">{{ t.lines }}</div></div>
+              <div style="text-align:right"><div style="font-weight:800">{{ t.total }}</div><button onClick="{{ t.remove }}" style="all:unset;cursor:pointer;font-size:13px;color:#b0402c;font-weight:600">Remove</button></div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ suggestOther }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ addOtherCity }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:16px;border:2px dashed #d6ccbd;border-radius:20px;padding:18px" style-hover="border-color:#c2562f">
+              <span style="width:40px;height:40px;border-radius:50%;border:2px dashed #9aa3b8;display:grid;place-items:center;font-weight:700;color:#5b6272">+</span>
+              <div><div style="font-weight:700">Add a stay in {{ otherCity }}</div><div style="font-size:14px;color:#5b6272">We'll start from {{ otherFrom }} so your dates follow on.</div></div>
+            </button>
+          </sc-if>
+
+          <div style="background:#fff;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;margin-top:10px">
+            <h2 style="font-size:20px;margin:0">Lead guest</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+              <input value="{{ name }}" onChange="{{ onName }}" placeholder="Full name (as on ID)" style="padding:14px;border:0;background:#f0ebe3;border-radius:12px;font-size:15px;outline-color:#c2562f">
+              <input value="{{ email }}" onChange="{{ onEmail }}" placeholder="Email for voucher" style="padding:14px;border:0;background:#f0ebe3;border-radius:12px;font-size:15px;outline-color:#c2562f">
+              <input value="{{ phone }}" onChange="{{ onPhone }}" placeholder="WhatsApp number" style="padding:14px;border:0;background:#f0ebe3;border-radius:12px;font-size:15px;outline-color:#c2562f">
+              <select style="padding:14px;border:0;background:#f0ebe3;border-radius:12px;font-size:15px"><option>Nationality</option><option>Saudi Arabia</option><option>Egypt</option><option>Pakistan</option><option>Indonesia</option><option>Other</option></select>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px">
+            <h2 style="font-size:20px;margin:0">Payment</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">
+              <sc-for list="{{ payOpts }}" as="p" hint-placeholder-count="4">
+                <button onClick="{{ p.select }}" style="all:unset;cursor:pointer;padding:14px;border-radius:14px;background:{{ p.bg }};color:{{ p.fg }};display:flex;flex-direction:column;gap:2px"><span style="font-weight:700">{{ p.label }}</span><span style="font-size:12px;opacity:.75">{{ p.sub }}</span></button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <aside style="position:sticky;top:80px;background:#16223a;color:#f6f1ea;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:14px;color:#9aa3b8">{{ tripMeta }}</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px">
+            <div style="display:flex;justify-content:space-between"><span style="color:#c3c9d6">Stays</span><span>{{ tripSub }}</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#c3c9d6">VAT 15%</span><span>{{ tripVat }}</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #33436a;padding-top:12px"><span>Total</span><span style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ tripTotal }}</span></div>
+          <button onClick="{{ confirm }}" style="all:unset;cursor:{{ payCursor }};background:{{ payBg }};color:{{ payFg }};padding:17px;border-radius:14px;font-weight:700;text-align:center;margin-top:4px">{{ payCta }}</button>
+          <sc-if value="{{ needDetails }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#f2b38f;text-align:center">Add the lead guest's name and email to continue.</div></sc-if>
+          <div style="font-size:12px;color:#9aa3b8;text-align:center">No booking fees. Free cancellation shown per room.</div>
+        </aside>
+      </div>
+    </sc-if>
+  </section>
+</sc-if>
+
+<!-- DONE -->
+<sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="Confirmed" style="max-width:720px;margin:0 auto;padding:56px 24px 72px;display:flex;flex-direction:column;gap:20px">
+    <span style="align-self:flex-start;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;background:#f7e4d9;color:#9e4222">Confirmed · {{ ref }}</span>
+    <h1 style="font-size:clamp(36px,5vw,56px);letter-spacing:-.04em;line-height:1.02;margin:0">You're all set. Have a blessed trip.</h1>
+    <p style="margin:0;color:#5b6272;font-size:17px;line-height:1.55">Vouchers are on their way to {{ emailShown }} and WhatsApp. Show them at reception.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ doneItems }}" as="t" hint-placeholder-count="1">
+        <div style="background:#fff;border-radius:18px;padding:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><div style="font-size:13px;color:#5b6272">{{ t.city }} · {{ t.dates }}</div><div style="font-weight:700">{{ t.hotel }}</div><div style="font-size:14px;color:#5b6272">{{ t.lines }}</div></div><strong style="">{{ t.total }}</strong></div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="{{ mapsHref }}" target="_blank" rel="noopener" style="all:unset;cursor:pointer;background:#16223a;color:#fff;padding:14px 22px;border-radius:999px;font-weight:700">{{ directionsLabel }}</a>
+      <a href="https://wa.me/966500000000?text=Hi%20mabeet%2C%20booking%20{{ ref }}" target="_blank" rel="noopener" style="all:unset;cursor:pointer;background:#fff;padding:14px 22px;border-radius:999px;font-weight:700;color:#16223a">{{ whatsappLabel }}</a>
+      <button onClick="{{ newTrip }}" style="all:unset;cursor:pointer;padding:14px 22px;border-radius:999px;font-weight:700;color:#c2562f">{{ anotherTrip }}</button>
+    </div>
+  </section>
+</sc-if>
+</main>
+
+<footer style="max-width:1240px;width:100%;box-sizing:border-box;margin:0 auto;padding:28px 24px 36px;display:flex;flex-wrap:wrap;gap:12px 28px;font-size:14px;color:#5b6272;border-top:1px solid #e0d8cc">
+  <strong style="color:#16223a">mabeet</strong><a href="#">About</a><a href="#">Travel agencies</a><a href="#">Partner with us</a><a href="#">Terms &amp; privacy</a><span style="margin-left:auto">Licensed by the Ministry of Tourism · WhatsApp 24/7</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;priceDisplay&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;total stay&quot;,&quot;per night&quot;],&quot;default&quot;:&quot;total stay&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;distanceUnit&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;walk minutes&quot;,&quot;meters&quot;],&quot;default&quot;:&quot;walk minutes&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showMap&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const PHOTOS = {"h1":{"img":"./images/1580418827493-f2b22c0a76cb.jpg","credit":"Photo by ekrem osmanoglu on Unsplash","href":"https://unsplash.com/@konevi"},"h2":{"img":"./images/1627728734379-a5f8c099763e.jpg","credit":"Photo by Untung Bekti Nugroho on Unsplash","href":"https://unsplash.com/@hello_untung"},"h3":{"img":"./images/1565552645632-d725f8bfc19a.jpg","credit":"Photo by Haidan on Unsplash","href":"https://unsplash.com/@hydngallery"},"h4":{"img":"./images/1720549973451-018d3623b55a.jpg","credit":"Photo by Danish Habib on Unsplash","href":"https://unsplash.com/@danishhabib261"},"h5":{"img":"./images/1704104501136-8f35402af395.jpg","credit":"Photo by Haythem Gataa on Unsplash","href":"https://unsplash.com/@haythemgataa"},"h6":{"img":"./images/1713302752681-0b14c1034707.jpg","credit":"Photo by Ishan on Unsplash","href":"https://unsplash.com/@seefromthesky"},"h7":{"img":"./images/1724191078796-8a997b989f43.jpg","credit":"Photo by Vincent Marcini on Unsplash","href":"https://unsplash.com/@vincent_marcini"},"h8":{"img":"./images/1605976528013-638e49b6599f.jpg","credit":"Photo by Haidan on Unsplash","href":"https://unsplash.com/@hydngallery"},"h9":{"img":"./images/1602769490455-36cf9734dbcb.jpg","credit":"Photo by Haidan on Unsplash","href":"https://unsplash.com/@hydngallery"},"h10":{"img":"./images/1551041777-575d3855ca71.jpg","credit":"Photo by Yasmine Arfaoui on Unsplash","href":"https://unsplash.com/@yasmine_photo"},"heroMakkah":{"img":"./images/1693590614566-1d3ea9ef32f7.jpg","credit":"Photo by Sam Riz on Unsplash","href":"https://unsplash.com/@itssamriz"},"heroMadinah":{"img":"./images/1692566123227-0f68f1b9dac6.jpg","credit":"Photo by Sam Riz on Unsplash","href":"https://unsplash.com/@itssamriz"},"double":{"img":"./images/1618773928121-c32242e63f39.jpg","credit":"Photo by Vojtech Bruzek on Unsplash","href":"https://unsplash.com/@vojtechbruzek"},"triple":{"img":"./images/1611892440504-42a792e24d32.jpg","credit":"Photo by visualsofdana on Unsplash","href":"https://unsplash.com/@visualsofdana"},"quad":{"img":"./images/1582719478250-c89cae4dc85b.jpg","credit":"Photo by Sasha Kaunas on Unsplash","href":"https://unsplash.com/@akaunas"},"suite":{"img":"./images/1590490360182-c33d57733427.jpg","credit":"Photo by reisetopia on Unsplash","href":"https://unsplash.com/@reisetopia"},"bedM":{"img":"./images/1631049307264-da0ec9d70304.jpg","credit":"Photo by Point3D Commercial Imaging Ltd. on Unsplash","href":"https://unsplash.com/@3dottawa"},"bedW":{"img":"./images/1631049552057-403cdb8f0658.jpg","credit":"Photo by Point3D Commercial Imaging Ltd. on Unsplash","href":"https://unsplash.com/@3dottawa"}};
+
+const STORE_KEY = 'mabeet.v1';
+const iso = (d) => d.toISOString().slice(0, 10);
+const defaultDates = () => {
+  const inD = new Date(); inD.setDate(inD.getDate() + 8);
+  const outD = new Date(inD); outD.setDate(outD.getDate() + 4);
+  return { checkin: iso(inD), checkout: iso(outD), today: iso(new Date()) };
+};
+const loadStore = () => {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch { return {}; }
+};
+const saveStore = (partial) => {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify({ ...loadStore(), ...partial })); } catch {}
+};
+
+class Component extends DCLogic {
+  componentDidMount() {
+    this.onR = () => this.setState({ wide: window.innerWidth >= 1100, menuOpen: window.innerWidth >= 760 ? false : this.state.menuOpen });
+    window.addEventListener('resize', this.onR);
+    this.onR();
+    document.documentElement.lang = this.state.lang;
+    document.documentElement.dir = this.state.lang === 'ar' ? 'rtl' : 'ltr';
+  }
+  componentDidUpdate(_p, prev) {
+    if (prev.lang !== this.state.lang) {
+      document.documentElement.lang = this.state.lang;
+      document.documentElement.dir = this.state.lang === 'ar' ? 'rtl' : 'ltr';
+      saveStore({ lang: this.state.lang });
+    }
+    if (prev.saved !== this.state.saved) saveStore({ saved: this.state.saved });
+    if (prev.trip !== this.state.trip) saveStore({ trip: this.state.trip });
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  state = (() => {
+    const stored = loadStore();
+    const d = defaultDates();
+    return {
+      saved: Array.isArray(stored.saved) ? stored.saved : [4, 7],
+      trip: Array.isArray(stored.trip) ? stored.trip : [],
+      lang: stored.lang === 'ar' ? 'ar' : 'en',
+      menuOpen: false, savedOnly: false, hover: null, wide: true, screen: 'home',
+      city: 'makkah', checkin: d.checkin, checkout: d.checkout, today: d.today,
+      guests: 2, mode: 'room', walk: 'any', stars: [], sort: 'walk', hotelId: 1, qty: {},
+      pay: 'mada', name: '', email: '', phone: '', ref: '', done: []
+    };
+  })();
+
+  hotels() {
+    const base = ['Free Wi-Fi', 'Air conditioning', '24h reception', 'Elevators', 'Prayer area', 'Daily housekeeping'];
+    return [
+      [1, 'makkah', 'Qasr Al Masjid Suites', 'Ibrahim Al Khalil St', 5, 150, 9.1, 1284, 820, 180, ['Haram view', 'Breakfast buffet']],
+      [2, 'makkah', 'Ajyad Heights', 'Ajyad', 4, 450, 8.6, 932, 540, 120, ['Restaurant', 'Laundry']],
+      [3, 'makkah', 'Al Hijrah Residence', 'Al Hijrah', 3, 900, 8.2, 611, 310, 75, ['Kitchenette', 'Free shuttle']],
+      [4, 'makkah', 'Jabal View Hotel', 'Jabal Omar', 5, 300, 9.0, 2140, 960, null, ['Haram view', 'Spa']],
+      [5, 'makkah', 'Misfalah Guest House', 'Misfalah', 3, 1250, 7.9, 402, 260, 60, ['Laundry']],
+      [6, 'makkah', 'Khalil Towers', 'Ibrahim Al Khalil St', 4, 650, 8.4, 777, 480, 105, ['Restaurant', 'Free shuttle']],
+      [7, 'madinah', 'Bab Al Salam Suites', 'Central Area', 5, 120, 9.3, 1655, 780, 170, ['Haram view', 'Breakfast buffet']],
+      [8, 'madinah', 'Quba Garden Hotel', 'Quba', 4, 2100, 8.5, 508, 390, 90, ['Garden', 'Free shuttle']],
+      [9, 'madinah', 'Al Ansar Plaza', 'Central Area', 4, 350, 8.8, 1023, 560, 125, ['Restaurant', 'Laundry']],
+      [10, 'madinah', 'Nakheel Stay', 'Al Aziziyah', 3, 800, 8.0, 344, 280, 65, ['Kitchenette']]
+    ].map(([id, city, name, area, stars, dist, rating, reviews, room, bed, extra]) => ({ id, city, name, area, stars, dist, rating, reviews, room, bed, extra, walk: Math.max(2, Math.round(dist / 80)), amenities: [...extra, ...base], ...PHOTOS["h" + id] }));
+  }
+
+  nightsFor(a, b) { const d = Math.round((new Date(b) - new Date(a)) / 864e5); return Math.max(1, d || 1); }
+  fmt(n) { return 'SAR ' + Math.round(n).toLocaleString('en-US'); }
+  fmtDate(s) { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString(this.state.lang === 'ar' ? 'ar-SA' : 'en-GB', { day: 'numeric', month: 'short' }); }
+  word(r) { return r >= 9 ? 'Exceptional' : r >= 8.5 ? 'Excellent' : r >= 8 ? 'Very good' : 'Good'; }
+  cityName(c) { return this.state.lang === 'ar' ? (c === 'makkah' ? 'مكة' : 'المدينة') : (c === 'makkah' ? 'Makkah' : 'Madinah'); }
+  go(screen, extra = {}) { this.setState({ screen, menuOpen: false, ...extra }); window.scrollTo(0, 0); }
+  addDays(s, n) { const d = new Date(s); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
+  t(en, ar) { return this.state.lang === 'ar' ? ar : en; }
+
+  rooms(h) {
+    const r = [
+      ['Double room', '1 king or 2 twin beds · 2 guests · 24 m²', h.room, 'Room only', true, false],
+      ['Triple room', '3 single beds · 3 guests · 28 m²', h.room * 1.25, 'Breakfast included', true, false],
+      ['Quad room', '4 single beds · 4 guests · 32 m²', h.room * 1.5, 'Room only', false, false],
+      ['Family suite', 'Bedroom + lounge · 5 guests · 48 m²', h.room * 2.2, 'Breakfast included', true, false]
+    ];
+    const b = h.bed ? [
+      ['Bed · men\'s shared room', '1 of 4 beds · shared bathroom · locker', h.bed, 'Room only', true, true],
+      ['Bed · women\'s shared room', '1 of 4 beds · private bathroom · locker', h.bed * 1.1, 'Room only', true, true]
+    ] : [];
+    const all = this.state.mode === 'bed' ? [...b, ...r] : [...r, ...b];
+    const keys = { 'Double room': 'double', 'Triple room': 'triple', 'Quad room': 'quad', 'Family suite': 'suite' };
+    return all.map(([name, desc, price, meal, free, isBed]) => { const k = isBed ? (name.includes('women') ? 'bedW' : 'bedM') : keys[name]; return { name, desc, price, meal, free, isBed, slotId: h.id + '-' + k, ...PHOTOS[k] }; });
+  }
+
+  renderVals() {
+    const s = this.state, p = this.props;
+    const all = this.hotels();
+    const n = this.nightsFor(s.checkin, s.checkout);
+    const totalMode = (p.priceDisplay ?? 'total stay') === 'total stay';
+    const bed = s.mode === 'bed';
+    const walkUnit = (p.distanceUnit ?? 'walk minutes') === 'walk minutes';
+    const distTxt = h => walkUnit ? h.walk + ' min walk' : (h.dist < 1000 ? h.dist + ' m' : (h.dist / 1000).toFixed(1) + ' km') + ' to Haram';
+    const priceOf = h => (bed ? h.bed : h.room);
+    const cityH = all.filter(h => h.city === s.city && (!bed || h.bed));
+    const walkRange = { any: [0, 99], 5: [0, 5], 10: [6, 10], 20: [11, 99] };
+
+    const isSaved = id => s.saved.includes(id);
+    const decorate = h => {
+      const unit = priceOf(h), q = bed ? s.guests : 1, sv = isSaved(h.id);
+      return {
+        heart: sv ? '♥' : '♡', heartColor: sv ? '#c2562f' : '#16223a', saveLabel: sv ? this.t('Saved', 'محفوظ') : this.t('Save', 'حفظ'),
+        toggleSave: e => { e && e.stopPropagation(); this.setState(x => ({ saved: x.saved.includes(h.id) ? x.saved.filter(v => v !== h.id) : [...x.saved, h.id] })); },
+        hoverOn: () => this.setState({ hover: h.id }), cardRing: s.hover === h.id ? '#16223a' : 'transparent',
+        hasBedTag: !!h.bed && bed, leftTag: (h.id % 3) + 2 + ' beds left at this price',
+        distM: h.dist < 1000 ? h.dist + ' m' : (h.dist / 1000).toFixed(1) + ' km',
+        shuttleNote: h.walk > 10 ? 'Free shuttle runs every 20 min before each prayer.' : 'Covered walkway most of the way; busiest after Isha.',
+        ...h, walkLabel: distTxt(h), walkMin: walkUnit ? h.walk + ' min' : (h.dist < 1000 ? h.dist + ' m' : (h.dist / 1000).toFixed(1) + ' km'),
+        ratingWord: this.word(h.rating), reviews: h.reviews.toLocaleString('en-US') + ' reviews',
+        perks: h.extra.join(' · ') + (h.bed && !bed ? ' · Beds available' : ''),
+        priceLabel: this.fmt(totalMode ? unit * n * q * 1.15 : unit),
+        priceUnit: totalMode ? `${n} nights${bed ? ', ' + q + ' beds' : ''} · incl. VAT` : bed ? 'per bed / night' : 'per night',
+        fromShort: this.fmt(bed && h.bed ? h.bed : h.room),
+        open: () => this.go('hotel', { hotelId: h.id, qty: {} })
+      };
+    };
+
+    const [lo, hi] = walkRange[s.walk];
+    let res = cityH.filter(h => h.walk >= lo && h.walk <= hi).filter(h => !s.stars.length || s.stars.includes(h.stars)).filter(h => !s.savedOnly || isSaved(h.id));
+    if (s.sort === 'walk') res.sort((a, b) => a.walk - b.walk);
+    if (s.sort === 'price') res.sort((a, b) => priceOf(a) - priceOf(b));
+    if (s.sort === 'rating') res.sort((a, b) => b.rating - a.rating);
+
+    const buckets = [['5', this.t('Under 5 min', 'أقل من 5 دقائق'), this.t('Steps from the gates', 'خطوات من الأبواب')], ['10', this.t('5–10 min', '5–10 دقائق'), this.t('Short walk', 'مشى قصير')], ['20', this.t('10+ min', 'أكثر من 10'), this.t('Best value, shuttles', 'قيمة أفضل مع نقل')]].map(([k, title, sub]) => {
+      const [a, b] = walkRange[k]; const list = cityH.filter(h => h.walk >= a && h.walk <= b);
+      const min = list.length ? Math.min(...list.map(priceOf)) : 0;
+      return { title, sub, count: list.length + (list.length === 1 ? this.t(' stay', ' إقامة') : this.t(' stays', ' إقامات')), from: list.length ? this.t('from ', 'من ') + this.fmt(min) : '—', bar: (k === '5' ? 25 : k === '10' ? 55 : 100) + '%', open: () => this.go('results', { walk: k }) };
+    });
+
+    const raw = all.find(h => h.id === s.hotelId) || all[0];
+    const hotel = decorate(raw);
+    const rooms = this.rooms(raw);
+    let selCount = 0, selSum = 0, selParts = [];
+    const roomsV = rooms.map((r, i) => {
+      const q = s.qty[i] || 0;
+      if (q) { selCount += q; selSum += r.price * n * q; selParts.push(q + ' × ' + r.name); }
+      const setQ = v => this.setState(x => ({ qty: { ...x.qty, [i]: Math.max(0, Math.min(9, v)) } }));
+      return {
+        ...r, qty: q, ring: q ? '#c2562f' : 'transparent',
+        priceLabel: this.fmt(totalMode ? r.price * n * 1.15 : r.price),
+        unitLabel: totalMode ? `${r.isBed ? 'per bed, ' : ''}${n} nights incl. VAT` : r.isBed ? 'per bed / night' : 'per night',
+        refund: r.free ? 'Free cancellation' : 'Non-refundable', refundColor: r.free ? '#c2562f' : '#8d93a1',
+        inc: () => setQ(q + 1), dec: () => setQ(q - 1)
+      };
+    });
+
+    const tripItems = s.trip.map((t, i) => ({ ...t, n: i + 1, total: this.fmt(t.sub * 1.15), remove: () => this.setState(x => ({ trip: x.trip.filter((_, j) => j !== i) })) }));
+    const tripSub = s.trip.reduce((a, t) => a + t.sub, 0);
+    const cities = new Set(s.trip.map(t => t.cityKey));
+    const otherKey = cities.has('makkah') && !cities.has('madinah') ? 'madinah' : cities.has('madinah') && !cities.has('makkah') ? 'makkah' : null;
+    const lastOut = s.trip.length ? s.trip[s.trip.length - 1].checkout : s.checkout;
+
+    const maxW = 28, rad = w => Math.min(w, maxW) / maxW * 46;
+    const mapPins = res.map(h => { const a = (h.id * 137) * Math.PI / 180, r = rad(h.walk) + 6, act = s.hover === h.id; const d = decorate(h);
+      return { x: (50 + Math.cos(a) * r) + '%', y: (50 + Math.sin(a) * r) + '%', label: this.fmt(priceOf(h)).replace('SAR ', ''), bg: act ? '#c2562f' : '#fff', fg: act ? '#fff' : '#16223a', z: act ? 5 : 2, open: d.open, hoverOn: d.hoverOn }; });
+    const R = raw.rating;
+    const scores = [['Location', .4], ['Cleanliness', 0], ['Staff', .2], ['Value', -.3]].map(([label, d]) => { const v = Math.min(10, R + d); return { label, val: v.toFixed(1), pct: v * 10 + '%' }; });
+    const revPool = [['Ahmed', 'Egypt', 'Family · Ramadan', 'Close enough that my parents could walk to every prayer. Rooms were spotless and the staff helped with wheelchairs.'], ['Siti', 'Indonesia', 'Group · Umrah', 'Booked shared beds for our group. Women\'s floor was quiet and separate, lockers were a nice touch.'], ['Omar', 'UK', 'Couple · 4 nights', 'Check-in was quick even at 2 am. Breakfast gets busy after Fajr, so go early.'], ['Fatima', 'Pakistan', 'Family · 6 nights', 'Good value for the walk. Elevators had a queue at peak times but moved fast.']];
+    const reviewsList = [0, 1, 2].map(i => { const [name, from, meta, text] = revPool[(raw.id + i) % 4]; return { name, initial: name[0], meta: from + ' · ' + meta, text, score: Math.min(10, R + [.3, -.2, .1][i]).toFixed(1) }; });
+    const valid = !!(s.name.trim() && /.+@.+\..+/.test(s.email));
+    const mapsQ = encodeURIComponent(raw.name + ', ' + raw.area + ', ' + this.cityName(raw.city) + ', Saudi Arabia');
+
+    return {
+      isHome: s.screen === 'home', isResults: s.screen === 'results', isHotel: s.screen === 'hotel', isTrip: s.screen === 'trip', isDone: s.screen === 'done',
+      city: s.city, cityName: this.cityName(s.city), checkin: s.checkin, checkout: s.checkout, today: s.today, guests: s.guests, mode: s.mode, sort: s.sort,
+      guestWord: bed ? this.t(s.guests > 1 ? 'beds' : 'bed', s.guests > 1 ? 'أسرّة' : 'سرير') : this.t(s.guests > 1 ? 'guests' : 'guest', s.guests > 1 ? 'ضيوف' : 'ضيف'),
+      modeLabel: bed ? this.t('Shared room, per bed', 'غرفة مشتركة لكل سرير') : this.t('Private room', 'غرفة خاصة'),
+      onCity: e => this.setState({ city: e.target.value }), onMode: e => this.setState({ mode: e.target.value }),
+      onCheckin: e => this.setState({ checkin: e.target.value }), onCheckout: e => this.setState({ checkout: e.target.value }),
+      onSort: e => this.setState({ sort: e.target.value }),
+      incGuests: () => this.setState(x => ({ guests: Math.min(12, x.guests + 1) })), decGuests: () => this.setState(x => ({ guests: Math.max(1, x.guests - 1) })),
+      goHome: () => this.go('home'), doSearch: () => this.go('results', { savedOnly: false }), backToResults: () => this.go('results'), openTrip: () => this.go('trip'),
+      nightsLabel: n + this.t(n > 1 ? ' nights' : ' night', n > 1 ? ' ليالٍ' : ' ليلة'), dateRange: this.fmtDate(s.checkin) + ' – ' + this.fmtDate(s.checkout),
+      matchCount: cityH.length, walkBuckets: buckets,
+      walkChips: [['any', this.t('Any walk', 'أي مسافة')], ['5', this.t('≤ 5 min', '≤ 5 دقائق')], ['10', this.t('5–10 min', '5–10 دقائق')], ['20', this.t('10+ min', '10+ دقائق')]].map(([k, l]) => ({ label: l, bg: s.walk === k ? '#16223a' : '#fff', fg: s.walk === k ? '#fff' : '#16223a', select: () => this.setState({ walk: k }) })),
+      starChips: [5, 4, 3].map(k => { const a = s.stars.includes(k); return { label: k + '-star', bg: a ? '#16223a' : '#fff', fg: a ? '#fff' : '#16223a', toggle: () => this.setState(x => ({ stars: a ? x.stars.filter(v => v !== k) : [...x.stars, k] })) }; }),
+      resetFilters: () => this.setState({ walk: 'any', stars: [], savedOnly: false }),
+      resultsTitle: `${res.length} ${res.length === 1 ? 'stay' : 'stays'} · sorted by ${s.sort === 'walk' ? 'walking time' : s.sort === 'price' ? 'price' : 'rating'}`,
+      noResults: !res.length, results: res.map(decorate),
+      showMap: p.showMap !== false && s.wide, layoutCols: p.showMap !== false && s.wide ? 'minmax(0,1.5fr) minmax(0,1fr)' : '1fr',
+      hotel, rooms: roomsV, scores, reviewsList, mapPins,
+      mapRings: [[5, 'rgba(194,86,47,.08)'], [10, 'rgba(194,86,47,.04)'], [20, 'transparent']].map(([w, fill]) => ({ size: rad(w) * 2 + '%', fill, label: w + ' min' })),
+      hoverOff: () => this.setState({ hover: null }),
+      haramName: s.city === 'makkah' ? 'Masjid al-Haram' : "the Prophet's Mosque", gateName: raw.city === 'makkah' ? 'King Abdulaziz Gate' : 'Bab Al Salam',
+      heroCaption: s.city === 'makkah' ? 'Masjid al-Haram, Makkah' : "Al-Masjid an-Nabawi, Madinah",
+      popular: [...cityH].sort((a, b) => b.rating - a.rating).slice(0, 4).map(decorate),
+      savedCount: s.saved.length, openSaved: () => this.go('results', { savedOnly: true, walk: 'any', stars: [] }),
+      toggleSavedOnly: () => this.setState(x => ({ savedOnly: !x.savedOnly })), savedChipBg: s.savedOnly ? '#c2562f' : '#fff', savedChipFg: s.savedOnly ? '#fff' : '#16223a',
+      steps: [[this.t('Stays', 'الإقامات'), true], [this.t('Guest details', 'بيانات الضيف'), valid], [this.t('Payment', 'الدفع'), false]].map(([label, ok], i) => ({ label, mark: ok ? '✓' : i + 1, bg: ok ? '#16223a' : '#fff', fg: ok ? '#fff' : '#5b6272' })),
+      needDetails: !valid, payBg: valid ? '#c2562f' : '#33436a', payFg: valid ? '#fff' : '#9aa3b8', payCursor: valid ? 'pointer' : 'not-allowed',
+      gallery: [['double', 'Room'], ['suite', 'Suite'], ['triple', 'Room detail'], ['bedM', 'Shared room']].map(([k, label]) => ({ key: raw.id + '-' + k, label, ...PHOTOS[k] })),
+      isMakkah: s.city === 'makkah', isMadinah: s.city === 'madinah', heroMakkah: PHOTOS.heroMakkah, heroMadinah: PHOTOS.heroMadinah,
+      selSummary: selCount ? selParts.join(', ') : this.t('Add rooms or beds above', 'أضف غرفاً أو أسرّة أعلاه'),
+      selTotal: this.fmt(selSum * 1.15),
+      addBg: selCount ? '#c2562f' : '#33436a', addLabel: selCount ? this.t('Add to trip →', 'أضف للرحلة ←') : this.t('Select to continue', 'اختر للمتابعة'),
+      addToTrip: () => {
+        if (!selCount) return;
+        const item = { cityKey: raw.city, city: this.cityName(raw.city), hotel: raw.name, dates: this.fmtDate(s.checkin) + ' – ' + this.fmtDate(s.checkout) + ' · ' + n + ' nights', lines: selParts.join(', '), sub: selSum, checkout: s.checkout };
+        this.go('trip', { trip: [...s.trip, item], qty: {} });
+      },
+      tripCount: s.trip.length, tripBadgeBg: s.trip.length ? '#f2b38f' : '#5b6272',
+      tripEmpty: !s.trip.length, tripHas: !!s.trip.length, tripItems,
+      suggestOther: !!otherKey, otherCity: otherKey ? this.cityName(otherKey) : '', otherFrom: this.fmtDate(lastOut),
+      addOtherCity: () => this.go('results', { city: otherKey, checkin: lastOut, checkout: this.addDays(lastOut, 3), walk: 'any' }),
+      tripMeta: `${s.trip.length} ${s.trip.length === 1 ? 'stay' : 'stays'} · ${[...cities].map(c => this.cityName(c)).join(' + ')}`,
+      tripSub: this.fmt(tripSub), tripVat: this.fmt(tripSub * 0.15), tripTotal: this.fmt(tripSub * 1.15),
+      name: s.name, email: s.email, phone: s.phone,
+      onName: e => this.setState({ name: e.target.value }), onEmail: e => this.setState({ email: e.target.value }), onPhone: e => this.setState({ phone: e.target.value }),
+      payOpts: [['mada', 'Mada', 'Saudi debit'], ['card', 'Card', 'Visa · Mastercard'], ['apple', 'Apple Pay', 'One tap'], ['hotel', 'Pay at hotel', 'Nothing today']].map(([k, l, sub]) => ({ label: l, sub, bg: s.pay === k ? '#16223a' : '#f0ebe3', fg: s.pay === k ? '#fff' : '#16223a', select: () => this.setState({ pay: k }) })),
+      payCta: s.pay === 'hotel' ? this.t('Reserve now, pay later', 'احجز الآن وادفع لاحقاً') : this.t('Pay ', 'ادفع ') + this.fmt(tripSub * 1.15),
+      confirm: () => valid && this.go('done', { ref: 'MB-' + Math.random().toString(36).slice(2, 8).toUpperCase(), done: tripItems.map(t => ({ city: t.city, dates: t.dates, hotel: t.hotel, lines: t.lines, total: t.total })), trip: [] }),
+      ref: s.ref, doneItems: s.done, emailShown: s.email || 'your email',
+      newTrip: () => this.go('home'),
+      langToggle: s.lang === 'ar' ? 'English' : 'عربي',
+      helpLabel: this.t('Help', 'مساعدة'),
+      savedLabel: this.t('Saved', 'المحفوظ'),
+      tripLabel: this.t('My trip', 'رحلتي'),
+      toggleLang: () => this.setState(x => ({ lang: x.lang === 'ar' ? 'en' : 'ar', menuOpen: false })),
+      toggleMenu: () => this.setState(x => ({ menuOpen: !x.menuOpen })),
+      menuClass: s.menuOpen ? 'open' : '',
+      badgeVerified: this.t('Verified stays only', 'إقامات موثّقة فقط'),
+      badgeVat: this.t('Prices include VAT', 'الأسعار تشمل الضريبة'),
+      badgeInstant: this.t('Instant confirmation', 'تأكيد فوري'),
+      sentenceStay: this.t("I'm staying in", 'سأقيم في'),
+      sentenceFrom: this.t('from', 'من'),
+      sentenceTo: this.t('to', 'إلى'),
+      sentenceIn: this.t('in', 'في'),
+      cityMakkah: this.t('Makkah', 'مكة'),
+      cityMadinah: this.t('Madinah', 'المدينة'),
+      modeRoom: this.t('a private room', 'غرفة خاصة'),
+      modeBed: this.t('a shared room (per bed)', 'غرفة مشتركة (لكل سرير)'),
+      staysAvailable: this.t('stays available', 'إقامات متاحة'),
+      showStays: this.t('Show stays →', 'عرض الإقامات ←'),
+      topRated: this.t('Top rated in', 'الأعلى تقييماً في'),
+      seeAll: this.t('See all', 'عرض الكل'),
+      walkTitle: this.t('How far do you want to walk?', 'كم تريد أن تمشي؟'),
+      walkSub: this.t('walking time to the Haram gates', 'وقت المشي إلى أبواب الحرم'),
+      plannerEyebrow: this.t('Umrah trip planner', 'مخطط رحلة العمرة'),
+      plannerTitle: this.t('Makkah and Madinah, one booking.', 'مكة والمدينة، حجز واحد.'),
+      plannerBody: this.t('Add a stay in each city to your trip, keep the dates in order, and pay once.', 'أضف إقامة في كل مدينة لرحلتك، رتّب التواريخ، وادفع مرة واحدة.'),
+      startWith: this.t('Start with', 'ابدأ بـ'),
+      directionsLabel: this.t('Get directions', 'الاتجاهات'),
+      whatsappLabel: this.t('Chat on WhatsApp', 'واتساب'),
+      anotherTrip: this.t('Plan another trip', 'خطّط رحلة أخرى'),
+      mapsHref: 'https://www.google.com/maps/search/?api=1&query=' + mapsQ
+    };
+  }
+}
+</script>
+</body>
+</html>
