@@ -15,7 +15,7 @@ Booking prototype for verified stays in **Makkah** and **Madinah** — walk time
 ## Run locally
 
 ```bash
-cd "projects/Mabeet Booking"
+cd projects/mabeet
 npx --yes serve .
 ```
 
